@@ -6,9 +6,5 @@ The JAVA script is called afterwards and it parses the XML, and prints the infor
 
 1. Clone the repo.
 2. Add the path of the repo, into the list of directories that Ghidra uses for its scripts.
-3. Before running the scripts, configure the path to the XML in both of the files. 
-	In the python script the path is at "XML_PATH"
-	In the java script it is in "path".
-	change it to whatever you want.
-4. Run the python script by double cliking on it.
-
+3. Add your API key to the environment variables - create a new variable called INTEZER_API_KEY with API key value.
+3. Run the python script by double clicking on it.

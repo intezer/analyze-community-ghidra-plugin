@@ -144,11 +144,11 @@ class CodeIntelligenceHelper:
             function_start_address = f.getEntryPoint()
             function_end_address = f.getBody().getMaxAddress()
 
-            a = int("0x{}".format(str(function_start_address)), 16)
-            b = int("0x{}".format(str(function_end_address)), 16)
+            start_address_as_int = int("0x{}".format(str(function_start_address)), 16)
+            end_address_as_int = int("0x{}".format(str(function_end_address)), 16)
 
-            functions_data.append({'start_address': long(a - image_base),
-                                   'end_address': long(b - image_base + 1)})
+            functions_data.append({'start_address': long(start_address_as_int - image_base),
+                                   'end_address': long(end_address_as_int - image_base + 1)})
 
         result_url = self._proxy.create_plugin_report(sha256, functions_data)
         ghidra_plugin_report = self._proxy.get_plugin_report(result_url)
