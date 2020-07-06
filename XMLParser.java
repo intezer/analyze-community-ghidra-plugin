@@ -31,7 +31,7 @@ public class XMLParser extends GhidraScript {
 
     @Override
     protected void run() throws Exception {
-        String path = "./items.xml";
+        String path = "items.xml";
         parse(path);
     }
 
