@@ -4,7 +4,7 @@ The plugin helps you focus on the malicoius and unique functions.
 For more information about the plugin visit our blog: 
 https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
 
-![alt text](https://github.com/intezer/analyze-community-ghidra-plugin/master/media/ghidra_community.gif)
+![alt text](https://github.com/intezer/analyze-community-ghidra-plugin/blob/master/media/ghidra_community.gif)
 
 **Installation**
 1. Clone the repo.
