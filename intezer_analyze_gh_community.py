@@ -8,7 +8,10 @@
 import sys
 import os
 
-sys.path.append('C:\\Python27\\lib\\site-packages')
+if os.name == "posix":
+    sys.path.append('/usr/lib/python2.7/dist-packages')
+else:
+    sys.path.append('C:\\Python27\\lib\\site-packages')
 
 import hashlib
 import traceback
