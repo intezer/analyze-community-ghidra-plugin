@@ -8,11 +8,18 @@
 import sys
 import os
 
-if os.name == "posix":
+if (os.name == "Posix") and (("Linux") in os.uname()):
     sys.path.append('/usr/lib/python2.7/dist-packages')
     sys.path.append('/usr/local/lib/python2.7/dist-packages')
-else:
+elif ("Darwin") in os.uname():
+    sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages')
+    sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
+    sys.path.append('/Library/Python/2.7/site-packages')
+    sys.path.append(os.path.expanduser('~')+'/Library/Python/2.7/lib/python/site-packages')
+elif os.name == "nt":
     sys.path.append('C:\\Python27\\lib\\site-packages')
+else:
+    print('Whelp, something went wrong.')
 
 import hashlib
 import traceback
