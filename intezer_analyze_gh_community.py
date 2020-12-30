@@ -16,7 +16,7 @@ elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
     sys.path.append('/Library/Python/2.7/site-packages')
     sys.path.append(os.path.expanduser('~')+'/Library/Python/2.7/lib/python/site-packages')
-elif os.name == "nt":
+elif os.name == "nt" or os.environ.get('os') == "Windows_NT":
     sys.path.append('C:\\Python27\\lib\\site-packages')
 else:
     print('Whelp, something went wrong.')
