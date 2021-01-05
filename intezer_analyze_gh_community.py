@@ -99,7 +99,8 @@ class Proxy:
         return self.session.get(url_path, **kwargs)
 
     def create_plugin_report(self, sha256, functions_data):
-        response = self._post(URLS['create_ghidra_plugin_report'].format(sha256), json={'functions_data': functions_data})
+        response = self._post(URLS['create_ghidra_plugin_report'].format(sha256),
+                              json={'functions_data': functions_data[:10000]})
         if response.status_code == 404:
             raise PluginException(MESSAGES['file_not_searched'].format(sha256))
 
@@ -177,7 +178,7 @@ class CodeIntelligenceHelper:
     def _get_absolute_address(self, function_address):
         return hex(self.imagebase + function_address)
 
-    def _enrich_function_map(self, function_map): 
+    def _enrich_function_map(self, function_map):
 
         fm = currentProgram.getFunctionManager()
         for function_absolute_address in function_map:
