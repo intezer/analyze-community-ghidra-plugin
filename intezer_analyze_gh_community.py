@@ -5,8 +5,8 @@
 # @menupath
 # @toolbar
 
-import sys
 import os
+import sys
 
 if (os.name == "Posix") and (("Linux") in os.uname()):
     sys.path.append('/usr/lib/python2.7/dist-packages')
@@ -15,7 +15,7 @@ elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages')
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
     sys.path.append('/Library/Python/2.7/site-packages')
-    sys.path.append(os.path.expanduser('~')+'/Library/Python/2.7/lib/python/site-packages')
+    sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')
 elif os.name == "nt":
     sys.path.append('C:\\Python27\\lib\\site-packages')
 else:
@@ -52,6 +52,9 @@ MESSAGES = {
     'connection_error': 'Failed to connect to the Intezer cloud platform',
     'no_genes': 'No genes where extracted from the file',
 }
+
+FUNCTIONS_LIMIT = 10000
+FUNCTIONS_FALLBACK_LIMIT = 1000
 
 
 class PluginException(Exception):
@@ -100,7 +103,7 @@ class Proxy:
 
     def create_plugin_report(self, sha256, functions_data):
         response = self._post(URLS['create_ghidra_plugin_report'].format(sha256),
-                              json={'functions_data': functions_data[:10000]})
+                              json={'functions_data': functions_data[:FUNCTIONS_LIMIT]})
         if response.status_code == 404:
             raise PluginException(MESSAGES['file_not_searched'].format(sha256))
 
@@ -162,7 +165,16 @@ class CodeIntelligenceHelper:
             functions_data.append({'start_address': long(start_address_as_int - image_base),
                                    'end_address': long(end_address_as_int - image_base + 1)})
 
-        result_url = self._proxy.create_plugin_report(sha256, functions_data)
+        is_partial_result = len(functions_data) >= FUNCTIONS_LIMIT
+
+        try:
+            result_url = self._proxy.create_plugin_report(sha256, functions_data)
+        except requests.ConnectionError:
+            # We got connection error when sending a large payload of functions.
+            # The fallback is to send a limited amount of functions
+            result_url = self._proxy.create_plugin_report(sha256, functions_data[:FUNCTIONS_FALLBACK_LIMIT])
+            is_partial_result = True
+
         ghidra_plugin_report = self._proxy.get_plugin_report(result_url)
 
         if not ghidra_plugin_report['functions']:
@@ -173,7 +185,7 @@ class CodeIntelligenceHelper:
             absolute_address = self._get_absolute_address(int(function_address))
             functions_map[absolute_address] = {'function_address': absolute_address}
             functions_map[absolute_address].update(record)
-        return functions_map
+        return functions_map, is_partial_result
 
     def _get_absolute_address(self, function_address):
         return hex(self.imagebase + function_address)
@@ -199,7 +211,7 @@ class CodeIntelligenceHelper:
 
         return function_map
 
-    def write_xml_file(self, functions_map):
+    def write_xml_file(self, functions_map, is_partial_result):
 
         def prettify(elem):
             """Return a pretty-printed XML string for the Element.
@@ -233,14 +245,17 @@ class CodeIntelligenceHelper:
 
         print(">>>Done building xml. Writing xml...")
 
+        if is_partial_result:
+            print(">>>The result is partial due to the large amount of functions")
+
         output_file = open(PATH_TO_XML, 'w')
         output_file.write(prettify(root))
         output_file.close()
 
     def create_function_map(self, sha256):
-        function_map = self._get_function_map(sha256)
+        function_map, is_partial_result = self._get_function_map(sha256)
         function_map = self._enrich_function_map(function_map)
-        self.write_xml_file(function_map)
+        self.write_xml_file(function_map, is_partial_result)
 
 
 class IntezerAnalyzePlugin():
