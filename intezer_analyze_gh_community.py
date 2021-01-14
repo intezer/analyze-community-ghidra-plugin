@@ -16,7 +16,7 @@ elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
     sys.path.append('/Library/Python/2.7/site-packages')
     sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')
-elif os.name == "nt":
+elif os.name == "nt" or ("windows") in java.lang.System.getProperty("os.name").lower():
     sys.path.append('C:\\Python27\\lib\\site-packages')
 else:
     print('Whelp, something went wrong.')
@@ -34,7 +34,7 @@ VERSION = '0.1'
 INTEZER_API_KEY = os.environ.get('INTEZER_API_KEY')
 BASE_URL = os.environ.get('INTEZER_BASE_URL', 'https://analyze.intezer.com')
 API_URL = '{}/api'.format(BASE_URL)
-DIR = os.path.dirname(os.path.abspath("__file__"))
+DIR = os.getenv('intezer_analyze_ghidra_export_file_path', os.path.dirname(os.path.abspath("__file__")))
 PATH_TO_XML = os.path.join(DIR, "items.xml")
 
 URLS = {
@@ -90,11 +90,12 @@ class Proxy:
         retries_counter = 0
         while retries_counter <= retries:
             response = self.session.post(url_path, **kwargs)
-            if 299 >= response.status_code >= 200:
+            if 299 >= response.status_code >= 200 or 499 >= response.status_code >= 400:
                 return response
             else:
                 time.sleep(2)
                 retries_counter += 1
+
         return None
 
     def _get(self, url_path, **kwargs):
@@ -104,6 +105,10 @@ class Proxy:
     def create_plugin_report(self, sha256, functions_data):
         response = self._post(URLS['create_ghidra_plugin_report'].format(sha256),
                               json={'functions_data': functions_data[:FUNCTIONS_LIMIT]})
+
+        if response is None:
+            raise Exception('Failed creating plugin report')
+
         if response.status_code == 404:
             raise PluginException(MESSAGES['file_not_searched'].format(sha256))
 
