@@ -16,7 +16,7 @@ elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
     sys.path.append('/Library/Python/2.7/site-packages')
     sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')
-elif os.name == "nt":
+elif os.name == "nt" or ("windows") in java.lang.System.getProperty("os.name").lower():
     sys.path.append('C:\\Python27\\lib\\site-packages')
 else:
     print('Whelp, something went wrong.')
@@ -106,7 +106,7 @@ class Proxy:
         response = self._post(URLS['create_ghidra_plugin_report'].format(sha256),
                               json={'functions_data': functions_data[:FUNCTIONS_LIMIT]})
 
-        if not response:
+        if response is None:
             raise Exception('Failed creating plugin report')
 
         if response.status_code == 404:
