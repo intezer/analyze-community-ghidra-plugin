@@ -105,10 +105,7 @@ class Proxy:
     def create_plugin_report(self, sha256, functions_data):
         response = self._post(URLS['create_ghidra_plugin_report'].format(sha256),
                               json={'functions_data': functions_data[:FUNCTIONS_LIMIT]})
-
-        if not response:
-            raise Exception('Failed creating plugin report')
-
+        
         if response.status_code == 404:
             raise PluginException(MESSAGES['file_not_searched'].format(sha256))
 
@@ -117,6 +114,9 @@ class Proxy:
 
         if response.status_code != 201:
             raise Exception(response.reason)
+
+        if not response:
+            raise Exception('Failed creating plugin report')
 
         result_url = response.json()['result_url']
 
