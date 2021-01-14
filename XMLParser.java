@@ -26,13 +26,19 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.nio.file.Paths;
 
 public class XMLParser extends GhidraScript {
 
     @Override
     protected void run() throws Exception {
-        String path = "items.xml";
-        parse(path);
+        String file_directory = System.getenv("intezer_analyze_ghidra_export_file_path");
+        if (file_directory == null) {
+            file_directory = System.getProperty("user.dir");
+        }
+
+        String filePath = Paths.get(file_directory, "items.xml").toString();
+        parse(filePath);
     }
 
     TableChooserDialog tableDialog;
