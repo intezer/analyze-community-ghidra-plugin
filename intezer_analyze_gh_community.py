@@ -11,10 +11,6 @@ import sys
 if (os.name == "Posix") and (("Linux") in os.uname()):
     sys.path.append('/usr/lib/python2.7/dist-packages')
     sys.path.append('/usr/local/lib/python2.7/dist-packages')
-elif os.name == "java":
-    sys.path.append('/usr/lib/python2.7/dist-packages')
-    sys.path.append('/usr/local/lib/python2.7/dist-packages')
-    sys.path.append('/usr/local/lib/python2.7/site-packages')
 elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages')
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
@@ -22,6 +18,10 @@ elif ("Darwin") in os.uname():
     sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')
 elif os.name == "nt" or ("windows") in java.lang.System.getProperty("os.name").lower():
     sys.path.append('C:\\Python27\\lib\\site-packages')
+elif os.name == "java":
+    sys.path.append('/usr/lib/python2.7/dist-packages')
+    sys.path.append('/usr/local/lib/python2.7/dist-packages')
+    sys.path.append('/usr/local/lib/python2.7/site-packages')
 else:
     print('Whelp, something went wrong.')
 
