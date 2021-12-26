@@ -17,3 +17,7 @@ https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
 2. In Ghidra: add the path of the repo, into the list of directories that Ghidra uses for its scripts.
 3. Upload the sample to https://analyze.intezer.com.
 4. In Ghidra: Run the python script by double-clicking on it.
+
+# macOS
+
+If you are using macOS, setting the INTEZER_API_KEY via Terminal only sets the variable for that particular session. The variable will not be found by Ghidra if it was started in the GUI. To automatically set this environment variable for everything including GUI applications, copy the file `com.intezer.Analyze.plist` to `~/Library/LaunchAgents` in your user's home directory. Edit the file to change the fake API key to your correct API key, then logout and login again.
