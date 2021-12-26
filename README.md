@@ -14,7 +14,7 @@ https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
     ```  
     
 1. Add your API key to the environment variables: create a new variable called INTEZER_API_KEY with your API key value.
-2. In Ghidra: add the path of the repo, into the list of directories that Ghidra uses for its scripts. From Ghidra's first main window: click "Edit" menu > "Plugin Path..." > "Add Dir..." > Navigate to 'analyze-community-ghidra-plugin' > "Add Directory" > "OK"
+2. In Ghidra: add the path of the repo into the list of directories that Ghidra uses for its scripts. From Ghidra's first main window: click "Edit" menu > "Plugin Path..." > "Add Dir..." > Navigate to 'analyze-community-ghidra-plugin' > "Add Directory" > "OK"
 4. Upload the sample to https://analyze.intezer.com.
 5. In Ghidra, from the CodeBrowser window: click "Window" menu > "Script Manager" > Filter: 'intezer' > double click 'intezer_analyze_gh_community.py'
 
