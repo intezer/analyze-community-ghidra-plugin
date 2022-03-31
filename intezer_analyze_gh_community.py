@@ -15,7 +15,7 @@ elif ("Darwin") in os.uname():
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages')
     sys.path.append('/System/Library/Frameworks/Python.framework/Versions/2.7/lib/site-python')
     sys.path.append('/Library/Python/2.7/site-packages')
-    sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')
+    sys.path.append(os.path.expanduser('~') + '/Library/Python/2.7/lib/python/site-packages')   
 elif os.name == "nt" or ("windows") in java.lang.System.getProperty("os.name").lower():
     sys.path.append('C:\\Python27\\lib\\site-packages')
 elif os.name == "java":
@@ -198,7 +198,16 @@ class CodeIntelligenceHelper:
 
     def _get_absolute_address(self, function_address):
         return hex(self.imagebase + function_address)
-
+    
+    def clean_flag_name(self, n):
+        '''Handle function names that are not ASCII characters'''
+        try:
+            str(n)
+        except Exception as ex:
+            print "Non ascii character"        
+            return ""
+        return str(n)
+        
     def _enrich_function_map(self, function_map):
 
         fm = currentProgram.getFunctionManager()
@@ -213,7 +222,7 @@ class CodeIntelligenceHelper:
                 function_start_address = function_name.getEntryPoint()
 
                 function_map[function_absolute_address]['function_address'] = "0x{}".format(str(function_start_address))
-                function_map[function_absolute_address]['function_name'] = str(function_name)
+                function_map[function_absolute_address]['function_name'] = self.clean_flag_name(function_name) 
             except AttributeError as ex:
                 function_map[function_absolute_address]['function_address'] = function_absolute_address
                 function_map[function_absolute_address]['function_name'] = ""  # Failed resolve function name
