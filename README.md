@@ -20,7 +20,7 @@ https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
 
 **Known Issues**
 
-New versions of the requests module are not working with Jython. The solution is to downgraded the Python requests module to 2.7.0. 
+New versions of the requests module are not working with Jython. The solution is to downgrade the Python requests module to 2.7.0. 
 
 # macOS
 
