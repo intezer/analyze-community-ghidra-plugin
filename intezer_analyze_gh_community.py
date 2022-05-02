@@ -8,7 +8,7 @@
 import os
 import sys
 
-if (os.name == "Posix") and (("Linux") in os.uname()):
+if (os.name == "Posix" or os.name.getshadow() == "posix") and (("Linux") in os.uname()):
     sys.path.append('/usr/lib/python2.7/dist-packages')
     sys.path.append('/usr/local/lib/python2.7/dist-packages')
 elif ("Darwin") in os.uname():
