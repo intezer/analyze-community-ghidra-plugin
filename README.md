@@ -1,4 +1,5 @@
-**Intezer Analyze Ghidra Plugin**
+# Intezer Analyze Ghidra Plugin
+
 Run the plugin in Ghidra to save yourself time while reversing.
 The plugin helps you focus on the malicious and unique functions.
 For more information about the plugin visit our blog: 
@@ -22,6 +23,6 @@ https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
 
 New versions of the requests module are not working with Jython. The solution is to downgrade the Python requests module to 2.7.0. 
 
-# macOS
+## macOS
 
 If you are using macOS, setting the INTEZER_API_KEY via Terminal only sets the variable for that particular session. The variable will not be found by Ghidra if it was started in the GUI. To automatically set this environment variable for everything including GUI applications, copy the file `com.intezer.Analyze.plist` to `~/Library/LaunchAgents` in your user's home directory. Edit the file to change the fake API key to your correct API key, then logout and login again.
