@@ -6,6 +6,16 @@ https://www.intezer.com/blog/intezer-analyze/community-ghidra-plugin-is-here/
 
 ![alt text](https://github.com/intezer/analyze-community-ghidra-plugin/blob/master/media/ghidra_community.gif)
 
+**Dependencies**
+
+This plugin requires the Python requests HTTP library. The plugin checks its environment for the type of OS and then chooses an appropriate syntax for extending the PATH environment variable to include the location where requests is installed. On Linux and macOS, requests is recommended to be installed only for the user running Ghidra since Jython can only use Python 2.7 packages and that version of Python is past its end of life. A minimal install that is maintainable is to use `get-pip.py` and then install requests:
+
+```
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+python2 get-pip.py --user
+pip2 install --user requests
+```
+
 **Installation**
 1. Clone the repo.
 
