@@ -1,6 +1,6 @@
 # Plugin for Intezer Analyze in Ghidra (python 2.7 - jython)
 # @author
-# @category Examples.Python
+# @category Detection
 # @keybinding
 # @menupath
 # @toolbar
