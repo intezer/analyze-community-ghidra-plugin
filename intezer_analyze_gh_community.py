@@ -1,6 +1,6 @@
 # Plugin for Intezer Analyze in Ghidra (python 2.7 - jython)
 # @author
-# @category Examples.Python
+# @category Detection
 # @keybinding
 # @menupath
 # @toolbar
@@ -229,8 +229,7 @@ class CodeIntelligenceHelper:
     def write_xml_file(self, functions_map, is_partial_result):
 
         def prettify(elem):
-            """Return a pretty-printed XML string for the Element.
-            """
+            """Return a pretty-printed XML string for the Element."""
             rough_string = ElementTree.tostring(elem, 'utf-8')
             reparsed = minidom.parseString(rough_string)
             return reparsed.toprettyxml(indent="  ")
@@ -290,10 +289,10 @@ class IntezerAnalyzePlugin():
             print(MESSAGES['file_not_exists'])
             return
 
-        print(">>> Program Info:\n" \
-              ">>>\t%s:\n" \
-              "\t%s_%s\n" \
-              "\t(%s)\n" \
+        print(">>> Program Info:\n"
+              ">>>\t%s:\n"
+              "\t%s_%s\n"
+              "\t(%s)\n"
               "\t%s" % (
                   program_name, language_id, compiler_spec_id, creation_date, path))
 
