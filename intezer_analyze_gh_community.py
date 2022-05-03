@@ -5,6 +5,7 @@
 # @menupath
 # @toolbar
 
+from distutils.version import StrictVersion
 import os
 import sys
 
@@ -34,6 +35,10 @@ from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import SubElement
 from xml.dom import minidom
+
+if StrictVersion(requests.__version__) < StrictVersion("2.27.1"):
+    print('Dependency not met: requests 2.27.1 or newer')
+    sys.exit(1)
 
 VERSION = '0.1'
 INTEZER_API_KEY = os.environ.get('INTEZER_API_KEY')
