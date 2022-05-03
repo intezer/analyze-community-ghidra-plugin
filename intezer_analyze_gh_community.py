@@ -224,8 +224,7 @@ class CodeIntelligenceHelper:
     def write_xml_file(self, functions_map, is_partial_result):
 
         def prettify(elem):
-            """Return a pretty-printed XML string for the Element.
-            """
+            """Return a pretty-printed XML string for the Element."""
             rough_string = ElementTree.tostring(elem, 'utf-8')
             reparsed = minidom.parseString(rough_string)
             return reparsed.toprettyxml(indent="  ")
