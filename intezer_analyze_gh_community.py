@@ -284,10 +284,10 @@ class IntezerAnalyzePlugin():
             print(MESSAGES['file_not_exists'])
             return
 
-        print(">>> Program Info:\n" \
-              ">>>\t%s:\n" \
-              "\t%s_%s\n" \
-              "\t(%s)\n" \
+        print(">>> Program Info:\n"
+              ">>>\t%s:\n"
+              "\t%s_%s\n"
+              "\t(%s)\n"
               "\t%s" % (
                   program_name, language_id, compiler_spec_id, creation_date, path))
 
