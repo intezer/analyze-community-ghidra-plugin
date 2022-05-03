@@ -25,7 +25,10 @@ pip2 install --user requests
     ```  
     
 1. Add your API key to the environment variables: create a new variable called INTEZER_API_KEY with your API key value.
-2. In Ghidra: add the path of the repo into the list of directories that Ghidra uses for its scripts. From Ghidra's first main window: click "Edit" menu > "Plugin Path..." > "Add Dir..." > Navigate to 'analyze-community-ghidra-plugin' > "Add Directory" > "OK"
+2. In Ghidra, from the CodeBrowser tool: click "Window" menu > "Bundle Manager".
+3. In the Bundle Manager, click the green "+" button in the upper right corner of the window. If you hover the mouse over the button the tool tip should display "Display file chooser to add bundles to list".
+4. Navigate to the directory "analyze-community-ghidra-plugin" wherever it was cloned by git and click "OK".
+5. The path should appear in the table. It should have the checkbox to the left of it checked, and the text should be colored green. If the text of the path is not green, click the refresh button to the left of the "+".
 4. Upload the sample to https://analyze.intezer.com.
 5. In Ghidra, from the CodeBrowser window: click "Window" menu > "Script Manager" > Filter: 'intezer' > double click 'intezer_analyze_gh_community.py'
 
