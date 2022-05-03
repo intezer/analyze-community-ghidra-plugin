@@ -5,7 +5,7 @@
 # @menupath
 # @toolbar
 
-from distutils.version import LooseVersion, StrictVersion
+from distutils.version import StrictVersion
 import os
 import sys
 
