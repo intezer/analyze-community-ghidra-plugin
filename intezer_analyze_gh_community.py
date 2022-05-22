@@ -36,8 +36,9 @@ from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import SubElement
 from xml.dom import minidom
 
-if StrictVersion(requests.__version__) < StrictVersion("2.27.1"):
-    print('Dependency not met: requests 2.27.1 or newer')
+req_ver = StrictVersion(requests.__version__)
+if req_ver < StrictVersion("2.27.1") or req_ver >= StrictVersion("2.28.0"):
+    print('Dependency not met: requests 2.27.1 or newer, but not 2.28 which does not support Python 2.')
     sys.exit(1)
 
 VERSION = '0.1'
