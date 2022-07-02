@@ -14,7 +14,7 @@ This plugin requires the Python requests HTTP library at version 2.27.1 or newer
 ```
 wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 python2 get-pip.py --user
-pip2 install --user requests
+pip2 install --user requests==2.27.1
 ```
 
 ## Ghidra Version
