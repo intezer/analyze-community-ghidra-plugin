@@ -220,8 +220,8 @@ class CodeIntelligenceHelper:
                 function_start_address = function_name.getEntryPoint()
 
                 function_map[function_absolute_address]['function_address'] = "0x{}".format(str(function_start_address))
-                function_map[function_absolute_address]['function_name'] = str(function_name)
-            except AttributeError as ex:
+                function_map[function_absolute_address]['function_name'] = function_name.encode('utf-8')
+            except:
                 function_map[function_absolute_address]['function_address'] = function_absolute_address
                 function_map[function_absolute_address]['function_name'] = ""  # Failed resolve function name
 
