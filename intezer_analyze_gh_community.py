@@ -214,14 +214,14 @@ class CodeIntelligenceHelper:
 
             n = function_absolute_address.replace('L', '')
             address = currentProgram.getAddressFactory().getAddress(n)
-            function_name = fm.getFunctionContaining(address)
+            function_object = fm.getFunctionContaining(address)
 
             try:
-                function_start_address = function_name.getEntryPoint()
+                function_start_address = function_object.getEntryPoint()
 
                 function_map[function_absolute_address]['function_address'] = "0x{}".format(str(function_start_address))
-                function_map[function_absolute_address]['function_name'] = str(function_name)
-            except AttributeError as ex:
+                function_map[function_absolute_address]['function_name'] = function_object.getName()
+            except:
                 function_map[function_absolute_address]['function_address'] = function_absolute_address
                 function_map[function_absolute_address]['function_name'] = ""  # Failed resolve function name
 
